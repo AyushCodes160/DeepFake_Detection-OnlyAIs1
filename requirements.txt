@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+python-multipart
+websockets
+opencv-python
+torch
+torchvision
+timm
+numpy
+mediapipe
+matplotlib
+pillow
+pymongo
+motor
+passlib[bcrypt]
+python-jose[cryptography]

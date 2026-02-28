@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Camera, Upload, Video, AlertTriangle } from "lucide-react";
+import { Camera, Upload, Video, AlertTriangle, X } from "lucide-react";
 
 interface VideoFeedProps {
   mode: "webcam" | "upload_faceswap" | "upload_ai";
@@ -188,15 +188,30 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
         ) : (
           <>
             {uploadedVideo ? (
-              <video
-                key="upload-video"
-                ref={uploadVideoRef}
-                src={uploadedVideo}
-                controls
-                autoPlay
-                playsInline
-                className="w-full h-full object-contain"
-              />
+              <div className="relative w-full h-full flex items-center justify-center bg-black/50">
+                <video
+                  key="upload-video"
+                  ref={uploadVideoRef}
+                  src={uploadedVideo}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+                <button
+                  onClick={() => {
+                    if (isAnalyzing) onAnalyzeToggle();
+                    setUploadedVideo(null);
+                    if (uploadVideoRef.current) {
+                      uploadVideoRef.current.src = "";
+                    }
+                  }}
+                  className="absolute top-3 right-3 bg-background/60 hover:bg-destructive text-foreground hover:text-destructive-foreground p-2 rounded-md backdrop-blur-md transition-all border border-border/50 z-10 shadow-sm"
+                  title="Clear Video"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             ) : (
               <label className="absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors">
                 <Video className="h-12 w-12 text-muted-foreground/50" />

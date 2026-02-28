@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+websockets
+python-multipart
+pydantic
+numpy
+opencv-python
+mediapipe
+torch
+torchvision
+Pillow
+transformers
+huggingface_hub

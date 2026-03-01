@@ -18,6 +18,11 @@ https://drive.google.com/file/d/1lCyQP6vv906pUYBmIz_fEUXRa_DMnCMu/view?usp=shari
 Download the DeepShield application here:
 https://drive.google.com/drive/folders/1npfY5su88gEZrUe0VCmwt68Id33Zpv0j?usp=sharing
 
+#### Demo video link:
+Deepfake : https://drive.google.com/file/d/12gx4binP9n8q2xlVU4slbILe3kNhyR0c/view?usp=sharing
+Real Person : https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
+AI generated : https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
+
 ## 1. Problem Statement
 
 ### Problem Title
@@ -62,6 +67,7 @@ Our strategy is to build a dual-layered, hybrid offline architecture. We will co
 ### Solution Overview
 
 DeepShield is an offline dual-stack application (React frontend + FastAPI backend) that analyzes either live webcam feeds or uploaded `.mp4` videos. It extracts faces over real-time WebSockets, runs them through our dual-layer AI and Mathematical pipeline, and provides a real-time Risk Score alongside visual heatmaps explaining the detection reasoning back to the UI.
+
 
 ### Core Idea
 

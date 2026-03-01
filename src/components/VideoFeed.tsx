@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Camera, Upload, Video, AlertTriangle, X } from "lucide-react";
+import { Camera, Upload, Video, AlertTriangle, X, CameraOff } from "lucide-react";
 
 interface VideoFeedProps {
   mode: "webcam" | "upload_faceswap" | "upload_ai";
@@ -15,12 +15,13 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wsRef = useRef<WebSocket | null>(null);
   const [hasWebcam, setHasWebcam] = useState(false);
+  const [isCameraActive, setIsCameraActive] = useState(true);
   const [uploadedVideo, setUploadedVideo] = useState<string | null>(null);
   const [boxes, setBoxes] = useState<any[]>([]);
 
   useEffect(() => {
     let currentStream: MediaStream | null = null;
-    if (mode === "webcam") {
+    if (mode === "webcam" && isCameraActive) {
       navigator.mediaDevices
         .getUserMedia({ video: { width: 640, height: 480 } })
         .then((stream) => {
@@ -31,6 +32,8 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
           }
         })
         .catch(() => setHasWebcam(false));
+    } else {
+      setHasWebcam(false);
     }
     return () => {
       // Clean up the stream explicitly, otherwise the camera LED stays on and leaks memory
@@ -41,7 +44,7 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
         videoRef.current.srcObject = null;
       }
     };
-  }, [mode]);
+  }, [mode, isCameraActive]);
 
   // WebSocket and frame streaming loop
   useEffect(() => {
@@ -173,15 +176,44 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
               muted
               className="w-full h-full object-cover"
             />
+            {isCameraActive && hasWebcam && (
+              <button
+                onClick={() => {
+                  if (isAnalyzing) onAnalyzeToggle();
+                  setIsCameraActive(false);
+                }}
+                className="absolute top-3 right-3 bg-background/60 hover:bg-destructive text-foreground hover:text-destructive-foreground p-2 rounded-md backdrop-blur-md transition-all border border-border/50 z-10 shadow-sm"
+                title="Turn Camera Off"
+              >
+                <CameraOff className="h-4 w-4" />
+              </button>
+            )}
             {!hasWebcam && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                <Camera className="h-12 w-12 text-muted-foreground/50" />
-                <p className="text-sm font-mono text-muted-foreground">
-                  Camera access required
-                </p>
-                <p className="text-xs text-muted-foreground/60">
-                  Allow camera permissions to use live detection
-                </p>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/95 backdrop-blur-sm z-10">
+                {isCameraActive ? (
+                  <>
+                    <Camera className="h-12 w-12 text-muted-foreground/50" />
+                    <p className="text-sm font-mono text-muted-foreground">
+                      Camera access required
+                    </p>
+                    <p className="text-xs text-muted-foreground/60">
+                      Allow camera permissions to use live detection
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <CameraOff className="h-12 w-12 text-muted-foreground/50" />
+                    <p className="text-sm font-mono text-muted-foreground">
+                      Camera is paused
+                    </p>
+                    <button
+                      onClick={() => setIsCameraActive(true)}
+                      className="mt-2 px-4 py-1.5 bg-primary/20 text-primary border border-primary/30 hover:bg-primary/30 rounded-md text-xs font-mono font-semibold transition-colors"
+                    >
+                      Turn Camera On
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </>

@@ -27,7 +27,7 @@ https://drive.google.com/file/d/12gx4binP9n8q2xlVU4slbILe3kNhyR0c/view?usp=shari
 https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
 
 **AI Generated:**  
-https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
+https://drive.google.com/file/d/10S_VeRa_cBDDNzUL3QeOm5sh7JhJB4L_/view?usp=sharing
 
 ## 1. Problem Statement
 

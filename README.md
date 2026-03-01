@@ -13,10 +13,23 @@ https://drive.google.com/drive/folders/1J3-zcxsV8ABCndI0YVntEPLmZke7c-ur?usp=sha
 ### PPT Link
 Access the complete project presentation:
 https://drive.google.com/file/d/1lCyQP6vv906pUYBmIz_fEUXRa_DMnCMu/view?usp=sharing
+### ⚠️ Warning
+Before running DeepShield, please follow these steps carefully to ensure the app works properly on macOS.
+---
+### **Installing and Running DeepShield**
 
+1. **Move the App**  
+   Drag **DeepShield** to the `/Applications` folder.
+
+2. **Run Terminal Command**  
+   Open **Terminal** and run the following command to allow the backend engine to start:  
+   ```bash
+   sudo xattr -rd com.apple.quarantine /Applications/DeepShield.app
 ### Application Download
 Download the DeepShield application here:
 https://drive.google.com/file/d/1JIyTTRAJCqqV6OjfjXHvUF9RUPWaeH7W/view?usp=sharing
+
+
 
 #### Demo Video Links:
 

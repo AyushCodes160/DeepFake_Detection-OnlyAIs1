@@ -30,9 +30,9 @@ COPY --from=frontend-builder /app/dist ./dist
 # This ensures the Docker container boots instantly instead of downloading gigabytes on startup
 RUN python backend/download_models.py
 
-# Hugging Face Spaces expects the app to run on port 7860
-ENV PORT=7860
-EXPOSE 7860
+# AWS EC2 expects the app to run on standard web port 80
+ENV PORT=80
+EXPOSE 80
 
 # Start the FastAPI monolithic server
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "80"]

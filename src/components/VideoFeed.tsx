@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Camera, Upload, Video, AlertTriangle, X, CameraOff } from "lucide-react";
+import { Camera, Upload, Video, AlertTriangle, X, CameraOff, ShieldAlert, ShieldCheck } from "lucide-react";
 
 interface VideoFeedProps {
   mode: "webcam" | "upload_faceswap" | "upload_ai";
@@ -18,6 +18,12 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
   const [isCameraActive, setIsCameraActive] = useState(true);
   const [uploadedVideo, setUploadedVideo] = useState<string | null>(null);
   const [boxes, setBoxes] = useState<any[]>([]);
+
+  // Calculate highest risk score for global panel
+  const maxRisk = boxes.length > 0 
+    ? Math.max(...boxes.map(b => b.confidence))
+    : null;
+  const isFake = maxRisk !== null && maxRisk > 0.50;
 
   useEffect(() => {
     let currentStream: MediaStream | null = null;
@@ -288,6 +294,36 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
 
         {/* Scanning overlay */}
         <canvas ref={canvasRef} className="hidden" />
+
+        {isAnalyzing && maxRisk !== null && (
+          <div className="absolute top-4 left-4 z-20 flex flex-col gap-1 bg-background/80 backdrop-blur-md border border-border/50 rounded-lg p-3 shadow-lg min-w-[180px] animate-in slide-in-from-left-4 fade-in duration-300">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Global Risk</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {isFake ? (
+                  <ShieldAlert className="h-5 w-5 text-red-500" />
+                ) : (
+                  <ShieldCheck className="h-5 w-5 text-green-500" />
+                )}
+                <span className={`font-mono text-lg font-bold ${isFake ? 'text-red-500' : 'text-green-500'}`}>
+                  {isFake ? 'FAKE' : 'REAL'}
+                </span>
+              </div>
+              <span className={`font-mono text-xl font-black ${isFake ? 'text-red-500' : 'text-green-500'}`}>
+                {(maxRisk * 100).toFixed(1)}%
+              </span>
+            </div>
+            {/* Minimal Progress Bar */}
+            <div className="h-1.5 w-full bg-secondary rounded-full mt-2 overflow-hidden">
+              <div 
+                className={`h-full transition-all duration-300 ${isFake ? 'bg-red-500' : 'bg-green-500'}`} 
+                style={{ width: `${maxRisk * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
         
         {isAnalyzing && (
           <>

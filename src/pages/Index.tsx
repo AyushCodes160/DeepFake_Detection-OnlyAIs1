@@ -11,7 +11,8 @@ import TimelineGraph from "@/components/TimelineGraph";
 
 const Index = () => {
   const [mode, setMode] = useState<"webcam" | "upload_faceswap" | "upload_ai">("webcam");
-  const wsUrl = import.meta.env.VITE_WS_URL || "ws://localhost:8000";
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  const wsUrl = import.meta.env.PROD ? `${protocol}//${window.location.host}` : "ws://localhost:8000";
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [cnnScore, setCnnScore] = useState(0);
   const [fftScore, setFftScore] = useState(0);

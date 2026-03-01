@@ -3,7 +3,9 @@ import time
 import cv2
 import numpy as np
 import traceback
+import os
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from models.deepfake_detector import DeepfakeDetector
 
@@ -80,3 +82,10 @@ async def websocket_stream(websocket: WebSocket, mode: str = "faceswap"):
 
     except WebSocketDisconnect:
         print("Client disconnected from stream.")
+
+# Mount the React frontend static build
+dist_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dist")
+if os.path.exists(dist_path):
+    app.mount("/", StaticFiles(directory=dist_path, html=True), name="static")
+else:
+    print(f"Warning: Frontend build directory not found at {dist_path}. Run 'npm run build' first.")

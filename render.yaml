@@ -4,9 +4,8 @@ services:
     env: python
     region: ohio
     plan: starter # Starter plan min needed for 2GB RAM. Free tier will face OOM errors.
-    rootDir: backend
-    buildCommand: "./build.sh"
-    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    buildCommand: "chmod +x render-build.sh && ./render-build.sh"
+    startCommand: "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.12

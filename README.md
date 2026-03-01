@@ -8,7 +8,7 @@ Project Demo & Resources
 
 ###  Live Video Demo:
 Watch the full demonstration of DeepShield in action:
-https://drive.google.com/file/d/1HCaYqEEtoGNmnprVg-4qXM0aYBWSu0k5/view?usp=drive_link
+https://drive.google.com/drive/folders/1J3-zcxsV8ABCndI0YVntEPLmZke7c-ur?usp=sharing
 
 ### PPT Link
 Access the complete project presentation:

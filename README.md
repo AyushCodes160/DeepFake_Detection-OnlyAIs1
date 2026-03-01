@@ -5,11 +5,12 @@ DeepShield: An Offline Real-Time Deepfake Detection System.
 ---
 Project Demo & Resources
 
+
 ###  Live Video Demo:
 Watch the full demonstration of DeepShield in action:
 https://drive.google.com/file/d/1HCaYqEEtoGNmnprVg-4qXM0aYBWSu0k5/view?usp=drive_link
 
-### Ppt Link
+### PPT Link
 Here is the the complete DeepShield – Offline Real-Time Deepfake Detection System project ppt here:
 https://drive.google.com/file/d/1lCyQP6vv906pUYBmIz_fEUXRa_DMnCMu/view?usp=sharing
 ## 1. Problem Statement

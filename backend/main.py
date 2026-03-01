@@ -7,6 +7,8 @@ import os
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from models.deepfake_detector import DeepfakeDetector
 
 app = FastAPI(title="TrueFace Deepfake Detector API")

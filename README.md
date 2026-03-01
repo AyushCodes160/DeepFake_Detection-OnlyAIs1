@@ -11,8 +11,13 @@ Watch the full demonstration of DeepShield in action:
 https://drive.google.com/file/d/1HCaYqEEtoGNmnprVg-4qXM0aYBWSu0k5/view?usp=drive_link
 
 ### PPT Link
-Here is the the complete DeepShield – Offline Real-Time Deepfake Detection System project ppt here:
+Access the complete project presentation:
 https://drive.google.com/file/d/1lCyQP6vv906pUYBmIz_fEUXRa_DMnCMu/view?usp=sharing
+
+### Application Download
+Download the DeepShield application here:
+https://drive.google.com/drive/folders/1npfY5su88gEZrUe0VCmwt68Id33Zpv0j?usp=sharing
+
 ## 1. Problem Statement
 
 ### Problem Title

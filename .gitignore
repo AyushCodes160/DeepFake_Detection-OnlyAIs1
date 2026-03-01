@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Backend Python
+backend/venv/
+backend/__pycache__/
+backend/models/__pycache__/
+backend/models/weights/deepfake_vs_real_image_detection/
+backend/models/weights/ai_vs_deepfake_vs_real/
+*.pyc
+*.pth
+*.bin

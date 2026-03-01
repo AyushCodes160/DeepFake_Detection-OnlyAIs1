@@ -30,8 +30,9 @@ class DeepfakeDetector:
             self.device = torch.device('cpu')
             
         print(f"Loading FaceForensics Deepfake ViT into {self.device}...")
-        self.processor = AutoImageProcessor.from_pretrained("dima806/deepfake_vs_real_image_detection")
-        self.model = AutoModelForImageClassification.from_pretrained("dima806/deepfake_vs_real_image_detection")
+        model1_path = os.path.join(os.path.dirname(__file__), 'weights', 'deepfake_vs_real_image_detection')
+        self.processor = AutoImageProcessor.from_pretrained(model1_path)
+        self.model = AutoModelForImageClassification.from_pretrained(model1_path)
         
         self.model.to(self.device)
         self.model.eval()
@@ -39,8 +40,9 @@ class DeepfakeDetector:
         
         # Initialize Generative AI Detector Model (PrithivMLMods)
         print(f"Loading Generative AI Detector model into {self.device}...")
-        self.ai_processor = AutoImageProcessor.from_pretrained("prithivMLmods/AI-vs-Deepfake-vs-Real-v2.0")
-        self.ai_model = AutoModelForImageClassification.from_pretrained("prithivMLmods/AI-vs-Deepfake-vs-Real-v2.0")
+        model2_path = os.path.join(os.path.dirname(__file__), 'weights', 'ai_vs_deepfake_vs_real')
+        self.ai_processor = AutoImageProcessor.from_pretrained(model2_path)
+        self.ai_model = AutoModelForImageClassification.from_pretrained(model2_path)
         self.ai_model.to(self.device)
         self.ai_model.eval()
         print("Generative AI Detector model loaded and ready!")

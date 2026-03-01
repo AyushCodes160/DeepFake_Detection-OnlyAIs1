@@ -18,10 +18,16 @@ https://drive.google.com/file/d/1lCyQP6vv906pUYBmIz_fEUXRa_DMnCMu/view?usp=shari
 Download the DeepShield application here:
 https://drive.google.com/drive/folders/1npfY5su88gEZrUe0VCmwt68Id33Zpv0j?usp=sharing
 
-#### Demo video link:
-Deepfake : https://drive.google.com/file/d/12gx4binP9n8q2xlVU4slbILe3kNhyR0c/view?usp=sharing
-Real Person : https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
-AI generated : https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
+#### Demo Video Links:
+
+**Deepfake:**  
+https://drive.google.com/file/d/12gx4binP9n8q2xlVU4slbILe3kNhyR0c/view?usp=sharing
+
+**Real Person:**  
+https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
+
+**AI Generated:**  
+https://drive.google.com/file/d/1adxmOOqedL6pDnxiA2kbud8FwBU-UL0b/view?usp=sharing
 
 ## 1. Problem Statement
 

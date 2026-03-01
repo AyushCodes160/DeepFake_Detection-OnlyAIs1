@@ -59,8 +59,14 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
     if (isAnalyzing) {
       // Connect to Python Backend based on selected mode
       const analysisMode = mode === "upload_ai" ? "ai_generated" : "faceswap";
-      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const wsBaseUrl = import.meta.env.PROD ? `${protocol}//${window.location.host}` : "ws://localhost:8000";
+      
+      let wsBaseUrl;
+      if (window.location.protocol === "file:") {
+        wsBaseUrl = "ws://127.0.0.1:8005";
+      } else {
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        wsBaseUrl = import.meta.env.PROD ? `${protocol}//${window.location.host}` : "ws://localhost:8000";
+      }
       wsRef.current = new WebSocket(`${wsBaseUrl}/ws/stream?mode=${analysisMode}`);
       
       wsRef.current.onopen = () => console.log(`WS Connected to Backend [Mode: ${analysisMode}]`);
@@ -314,14 +320,14 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
                 </span>
               </div>
               <span className={`font-mono text-xl font-black ${isFake ? 'text-red-500' : 'text-green-500'}`}>
-                {(maxRisk * 100).toFixed(1)}%
+                {isFake ? 'FAKE' : 'REAL'} {isFake ? (maxRisk * 100).toFixed(1) : ((1 - maxRisk) * 100).toFixed(1)}%
               </span>
             </div>
             {/* Minimal Progress Bar */}
             <div className="h-1.5 w-full bg-secondary rounded-full mt-2 overflow-hidden">
               <div 
                 className={`h-full transition-all duration-300 ${isFake ? 'bg-red-500' : 'bg-green-500'}`} 
-                style={{ width: `${maxRisk * 100}%` }}
+                style={{ width: `${(isFake ? maxRisk : (1 - maxRisk)) * 100}%` }}
               />
             </div>
           </div>
@@ -337,7 +343,8 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
             {/* Live bounding boxes from backend */}
             {boxes.map((box, i) => {
               const b = box.bbox;
-              const prob = (box.confidence * 100).toFixed(1);
+              const isBoxFake = box.status === "FAKE";
+              const prob = isBoxFake ? (box.confidence * 100).toFixed(1) : ((1 - box.confidence) * 100).toFixed(1);
               // Calculate bounds taking into account CSS object-cover/object-contain cropping
               const activeVideo = mode === "webcam" ? videoRef.current : uploadVideoRef.current;
               if (!activeVideo || activeVideo.videoWidth === 0) return null;
@@ -384,7 +391,7 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
                   }}
                 >
                   <div className={`absolute -top-6 left-0 text-[10px] font-mono px-1.5 py-0.5 rounded text-white ${box.status === "FAKE" ? 'bg-red-500/80' : 'bg-green-500/80'}`}>
-                    {box.status} • {prob}%
+                    {box.status} • {prob} %
                   </div>
                 </div>
               );

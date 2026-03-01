@@ -322,3 +322,71 @@ Screenshots from Postman and FastAPI Swagger UI will be uploaded here once the i
 ## 16. Known Limitations
 
 - _Resolution Dependency:_ Highly compressed, very low-res videos may limit FFT analysis accuracy.
+
+---
+
+## 17. How to Run
+
+### 🖥️ Option A: 100% Offline (Local Execution)
+
+Run the entire application disconnected from the internet. All ML models will run directly on your CPU/GPU natively.
+
+#### Step 1: Clone the Repo & Install Frontend
+
+```bash
+git clone https://github.com/AyushCodes160/DeepFake_Detection-OnlyAIs1.git
+cd DeepFake_Detection-OnlyAIs1
+npm install
+```
+
+#### Step 2: Setup Python Backend Environment
+
+Open a new terminal session.
+
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+#### Step 3: Fetch Models Locally (One-Time Setup)
+
+You must be online for this single step to fetch the ~1.5GB ML weights down to your hard drive.
+
+```bash
+python download_models.py
+```
+
+#### Step 4: Run the Application!
+
+You can now **turn off your Wi-Fi**.
+Start the FastAPI Backend:
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Start the React Frontend (in another terminal):
+
+```bash
+cd ..
+npm run dev
+```
+
+### ☁️ Option B: Cloud Deployment (Vercel / Render / AWS)
+
+If deploying the backend to a cloud container, you must ensure the model weights are downloaded during the build step before the server boots.
+
+**Example `CMD` for Docker or Render Build Script:**
+
+```bash
+# 1. Install dependencies
+pip install -r backend/requirements.txt
+
+# 2. Force the server to download the model weights locally into the container
+python backend/download_models.py
+
+# 3. Start the ASGI Server
+uvicorn backend.main:app --host 0.0.0.0 --port 8000
+```

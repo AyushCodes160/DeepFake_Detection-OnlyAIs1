@@ -11,6 +11,7 @@ import TimelineGraph from "@/components/TimelineGraph";
 
 const Index = () => {
   const [mode, setMode] = useState<"webcam" | "upload_faceswap" | "upload_ai">("webcam");
+  const wsUrl = import.meta.env.VITE_WS_URL || "ws://localhost:8000";
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [cnnScore, setCnnScore] = useState(0);
   const [fftScore, setFftScore] = useState(0);
@@ -74,7 +75,7 @@ const Index = () => {
             Live Analysis Connection
           </span>
           <span className="text-[12px] font-mono text-primary bg-primary/10 px-2 py-0.5 rounded">
-            WS://LOCALHOST:8000
+            {wsUrl.replace('ws://', '').replace('wss://', '').toUpperCase()}
           </span>
         </div>
         <div className="flex items-center gap-4">

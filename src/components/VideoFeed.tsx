@@ -59,7 +59,8 @@ const VideoFeed = ({ mode, onModeChange, isAnalyzing, onAnalyzeToggle, onAnalysi
     if (isAnalyzing) {
       // Connect to Python Backend based on selected mode
       const analysisMode = mode === "upload_ai" ? "ai_generated" : "faceswap";
-      wsRef.current = new WebSocket(`ws://localhost:8000/ws/stream?mode=${analysisMode}`);
+      const wsBaseUrl = import.meta.env.VITE_WS_URL || "ws://localhost:8000";
+      wsRef.current = new WebSocket(`${wsBaseUrl}/ws/stream?mode=${analysisMode}`);
       
       wsRef.current.onopen = () => console.log(`WS Connected to Backend [Mode: ${analysisMode}]`);
       wsRef.current.onmessage = (event) => {

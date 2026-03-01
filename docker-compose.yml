@@ -1,9 +1,0 @@
-version: "3.8"
-
-services:
-  deepshield-backend:
-    build: .
-    ports:
-      - "80:80"
-    restart: unless-stopped
-    shm_size: "2gb" # Needed for heavy OpenCV operations handling large frames
